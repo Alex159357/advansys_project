@@ -1,5 +1,5 @@
-import 'package:test_drag_drop/helpers/states/widget_types.dart';
-import 'package:test_drag_drop/model/widget_model.dart';
+import 'package:advansys_project/helpers/states/widget_types.dart';
+import 'package:advansys_project/model/widget_model.dart';
 
 class CounterModel implements WidgetModel {
   @override

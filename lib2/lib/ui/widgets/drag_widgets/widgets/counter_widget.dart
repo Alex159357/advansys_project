@@ -1,18 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:test_drag_drop/helpers/states/widget_types.dart';
-import 'package:test_drag_drop/model/module_id.dart';
-import 'package:test_drag_drop/ui/widgets/drag_widgets/widgets/expanded_widget.dart';
-
 import '../../../../bloc/drag/drag_bloc.dart';
 import '../../../../bloc/drag/drag_event.dart';
 import '../../../../bloc/drag/drag_state.dart';
 import '../../../../drag_view.dart';
 import '../../../../model/counter_model.dart';
-import '../../../../model/widget_model.dart';
 import 'package:collection/collection.dart';
+
+import '../../../../model/module_id.dart';
 
 class CounterWidget extends StatelessWidget {
   final CounterModel wm;

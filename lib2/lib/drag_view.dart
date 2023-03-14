@@ -1,18 +1,17 @@
-import 'package:animations/animations.dart';
+
+import 'package:advansys_project/ui/view/add_widget_view.dart';
+import 'package:advansys_project/ui/widgets/drag_widgets/drag_wrapper.dart';
+import 'package:advansys_project/ui/widgets/drag_widgets/widgets/expanded_widget.dart';
+import 'package:advansys_project/ui/widgets/drag_widgets/widgets/widget_size_render_object.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:test_drag_drop/bloc/drag/drag_state.dart';
-import 'package:test_drag_drop/ui/state/base_state_less.dart';
-import 'package:test_drag_drop/ui/view/add_widget_view.dart';
-import 'package:test_drag_drop/ui/widgets/drag_widgets/drag_wrapper.dart';
-import 'package:test_drag_drop/ui/widgets/drag_widgets/widgets/expanded_widget.dart';
-import 'package:test_drag_drop/ui/widgets/drag_widgets/widgets/widget_size_render_object.dart';
 import 'bloc/drag/drag_bloc.dart';
 import 'bloc/drag/drag_event.dart';
+import 'bloc/drag/drag_state.dart';
 import 'helpers/constaints.dart';
 import 'model/widget_model.dart';
+import 'package:advansys_project/ui/state/base_state_less.dart';
 
 
 GlobalKey dragKey = GlobalKey();

@@ -1,18 +1,16 @@
-import 'dart:math' as math;
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_drag_drop/model/climate_control_model.dart';
-import 'package:test_drag_drop/model/climate_sensor_model.dart';
-import 'package:test_drag_drop/model/switch_model.dart';
-import 'package:test_drag_drop/model/widget_model.dart';
-import 'package:test_drag_drop/ui/widgets/drag_widgets/widgets/counter_widget.dart';
-import 'package:test_drag_drop/ui/widgets/drag_widgets/widgets/switch_widget.dart';
-import 'package:test_drag_drop/ui/widgets/drag_widgets/widgets/climate_sensor_widget.dart';
-import 'package:test_drag_drop/ui/widgets/drag_widgets/widgets/climate_controlPabel_widget.dart';
 
+import 'package:advansys_project/ui/widgets/drag_widgets/widgets/climate_controlPabel_widget.dart';
+import 'package:advansys_project/ui/widgets/drag_widgets/widgets/climate_sensor_widget.dart';
+import 'package:advansys_project/ui/widgets/drag_widgets/widgets/counter_widget.dart';
+import 'package:advansys_project/ui/widgets/drag_widgets/widgets/switch_widget.dart';
+import 'package:flutter/material.dart';
 import '../../../drag_view.dart';
 import '../../../helpers/states/widget_types.dart';
+import '../../../model/climate_control_model.dart';
+import '../../../model/climate_sensor_model.dart';
 import '../../../model/counter_model.dart';
+import '../../../model/switch_model.dart';
+import '../../../model/widget_model.dart';
 
 class DragWrapper extends StatelessWidget {
   WidgetModel widgetModel;

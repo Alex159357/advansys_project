@@ -1,6 +1,6 @@
+import 'package:advansys_project/ui/theme/app_theme_light.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_drag_drop/ui/theme/app_theme_light.dart';
 
 import 'bloc/drag/drag_bloc.dart';
 import 'home_screen.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           debugShowCheckedModeBanner: false,
           theme: AppThemeLight().theme,
-          home: HomeScreen()
+          home: const HomeScreen()
       )),
     );
   }

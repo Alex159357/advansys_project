@@ -2,16 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test_drag_drop/helpers/states/widget_types.dart';
-
 import '../../../../bloc/drag/drag_bloc.dart';
 import '../../../../bloc/drag/drag_event.dart';
 import '../../../../bloc/drag/drag_state.dart';
-import '../../../../drag_view.dart';
 import '../../../../model/climate_control_model.dart';
 import '../../../../model/module_id.dart';
-import '../../../../model/widget_model.dart';
-import 'expanded_widget.dart';
 
 class ClimateControlPaneWidget extends StatelessWidget {
   final ClimateControlModel wm;

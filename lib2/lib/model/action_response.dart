@@ -1,8 +1,5 @@
 
 
-
-import 'package:test_drag_drop/model/responce_value.dart';
-
 class ActionResponse {
   String status;
 

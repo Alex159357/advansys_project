@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-
-import '../helpers/states/widget_types.dart';
 
 class WidgetModel {
   int? id;

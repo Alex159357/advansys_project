@@ -4,13 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:test_drag_drop/model/widget_model.dart';
-
 import '../helpers/main_mapper.dart';
-import '../helpers/states/widget_types.dart';
 import '../home_screen.dart';
-import '../model/action_response.dart';
-import '../model/switch_model.dart';
 
 
 class RequestInterceptor<T, E> extends Interceptor with MainMapper<T, E> {

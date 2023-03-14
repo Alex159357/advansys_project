@@ -1,9 +1,6 @@
+import 'package:advansys_project/repo/request_interceptor.dart';
 import 'package:dio/dio.dart';
-import 'package:test_drag_drop/model/switch_model.dart';
-import 'package:test_drag_drop/repo/request_interceptor.dart';
-import '../helpers/main_mapper.dart';
 import '../helpers/states/api_values.dart';
-import '../model/widget_model.dart';
 import 'client.dart';
 
 class ClientImpl<T, E> extends RequestInterceptor<T, E> implements Client<T, E> {

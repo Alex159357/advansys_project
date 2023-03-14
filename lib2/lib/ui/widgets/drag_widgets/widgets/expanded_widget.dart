@@ -1,16 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:test_drag_drop/bloc/drag/drag_bloc.dart';
-import 'package:test_drag_drop/model/climate_sensor_model.dart';
-import 'package:test_drag_drop/model/counter_model.dart';
-import 'package:test_drag_drop/model/widget_model.dart';
-
+import '../../../../bloc/drag/drag_bloc.dart';
 import '../../../../bloc/drag/drag_event.dart';
 import '../../../../bloc/drag/drag_state.dart';
+import '../../../../model/climate_sensor_model.dart';
+import '../../../../model/counter_model.dart';
 import '../../../../model/module_id.dart';
 import '../../../../model/switch_model.dart';
+import '../../../../model/widget_model.dart';
 
 class ExpandedWidget extends StatelessWidget {
   final WidgetModel widgetModel;

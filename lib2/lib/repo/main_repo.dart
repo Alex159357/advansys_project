@@ -1,9 +1,8 @@
 
 
-import 'package:test_drag_drop/model/module_id.dart';
-import 'package:test_drag_drop/model/widget_model.dart';
-
+import '../model/widget_model.dart';
 import '../model/hub_id_model.dart';
+import '../model/module_id.dart';
 
 abstract class MainRepo {
 

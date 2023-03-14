@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:test_drag_drop/helpers/states/widget_types.dart';
-import 'package:test_drag_drop/model/climate_control_model.dart';
-import 'package:test_drag_drop/model/climate_sensor_model.dart';
-import 'package:test_drag_drop/model/counter_model.dart';
-import 'package:test_drag_drop/model/module_id.dart';
-import 'package:test_drag_drop/model/widget_model.dart';
+import 'package:advansys_project/helpers/states/widget_types.dart';
+import 'package:advansys_project/model/climate_control_model.dart';
+import 'package:advansys_project/model/climate_sensor_model.dart';
+import 'package:advansys_project/model/counter_model.dart';
+import 'package:advansys_project/model/module_id.dart';
+import 'package:advansys_project/model/widget_model.dart';
 
 import '../model/action_response.dart';
 import '../model/hub_id_model.dart';
