@@ -78,6 +78,12 @@ class OnTypeChanged extends DragEvent{
   OnTypeChanged(this.type);
 }
 
+class OnOutputChanged extends DragEvent{
+  final String type;
+
+  OnOutputChanged(this.type);
+}
+
 class OnAddWidgetBtnPressed extends DragEvent{}
 
 class OnTagNameChanged extends DragEvent{

@@ -14,12 +14,12 @@ class MainRepoImpl implements MainRepo {
 
   @override
   Future<bool> passAction(
-      {required String hubid, required String id, required bool state}) async {
+      {required String hubid, required String id, required bool state, required String paramOut}) async {
     final outState = state ? 1 : 0;
     var req = {
       "hubid": "$hubid",
       "value":
-          "{\"action\":\"setManual\",\"data\":{\"idOut\":\"$id\",\"paramOut\":\"DO3\",\"setValue\":\"$outState\"}}"
+          "{\"action\":\"setManual\",\"data\":{\"idOut\":\"$id\",\"paramOut\":\"$paramOut\",\"setValue\":\"$outState\"}}"
     };
     Client client = ClientImpl<ActionResponse, void>("");
     ActionResponse actionResponse =
@@ -61,24 +61,24 @@ class MainRepoImpl implements MainRepo {
 
   @override
   Future<void> widgetMoved(WidgetModel widgetModel) async {
-    // Client client = ClientImpl<ActionResponse, void>("");
-    // var req = {
-    //   "widget_id": widgetModel.id,
-    //   "panel_id": panelId,
-    //   "x": widgetModel.dx.toString(),
-    //   "y": widgetModel.dy.toString()
-    // };
-    // try {
-    //   ActionResponse actionResponse = await client.callPost(
-    //       data: req, apiValues: ApiValues.ON_WIDGEET_POSITION_CHANGED);
-    //   if (kDebugMode) {
-    //     print(actionResponse.status);
-    //   }
-    // } catch (e) {
-    //   if (kDebugMode) {
-    //     print(e);
-    //   }
-    // }
+    Client client = ClientImpl<ActionResponse, void>("");
+    var req = {
+      "widget_id": widgetModel.id,
+      "panel_id": panelId,
+      "x": widgetModel.dx.toString(),
+      "y": widgetModel.dy.toString()
+    };
+    try {
+      ActionResponse actionResponse = await client.callPost(
+          data: req, apiValues: ApiValues.ON_WIDGEET_POSITION_CHANGED);
+      if (kDebugMode) {
+        print(actionResponse.status);
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   @override
@@ -110,7 +110,6 @@ class MainRepoImpl implements MainRepo {
     // TODO: implement addDevice
     Client client = ClientImpl<ActionResponse, void>("");
     try {
-      req.addAll({"panel_id": panelId, "parameter": parameter});
       ActionResponse actionResponse =
           await client.callPost(data: req, apiValues: ApiValues.ADD_DEVICE);
       if (actionResponse.status == "Success") {

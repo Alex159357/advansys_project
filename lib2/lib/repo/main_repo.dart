@@ -9,7 +9,7 @@ abstract class MainRepo {
 
   Future<List<WidgetModel>?> fetchWidgets();
 
-  Future<bool> passAction({required String hubid, required String id, required bool state});
+  Future<bool> passAction({required String hubid, required String id, required bool state, required String paramOut});
 
   Future<List<HubIdModel>?> fetchHubs();
 

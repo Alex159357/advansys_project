@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:advansys_project/helpers/states/widget_types.dart';
+import 'package:advansys_project/model/switch_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +35,7 @@ class DragBloc extends Bloc<DragEvent, DragState> {
     on<AddDialogState>(_onDialogStateChanged);
     on<OnWidgetNameChanged>(_onWidgetNameChanged);
     on<OnTypeChanged>(_onWidgetTypeChanged);
+    on<OnOutputChanged>(_onWidgetOutputChanged);
     on<OnAddWidgetBtnPressed>(_onAddWidgetBtnPressed);
     on<OnTagNameChanged>(_onTagNameChanged);
     on<OnSwitchStateChanged>(_onSwitchStateChanged);
@@ -180,14 +183,14 @@ class DragBloc extends Bloc<DragEvent, DragState> {
     });
 
     WidgetModel wmTmp = WidgetModel(
-        id: widgetId,
+        id: int.tryParse("${state.addWidgetState.widgetType}$widgetId"),
         name: state.addWidgetState.name,
         moduleId: state.addWidgetState.selectedModule,
         moduleHubId: state.addWidgetState.selectedHub,
         dx: 0,
         dy: 0);
     var req = wmTmp.toJson();
-    req.addAll({"panel_id": panelId, "parameter": state.addWidgetState.widgetType});
+    req.addAll({"panel_id": panelId, "parameter": state.addWidgetState.widgetOutput.substring(0, 2), "output_id": state.addWidgetState.widgetOutput.substring(2, state.addWidgetState.widgetOutput.length)});
     final response = await _mainRepoImpl.addDevice(req);
     if (response != null) {
       _widgetList.clear();
@@ -208,6 +211,11 @@ class DragBloc extends Bloc<DragEvent, DragState> {
         addWidgetState: state.addWidgetState.clone(widgetType: event.type)));
   }
 
+  FutureOr<void> _onWidgetOutputChanged(OnOutputChanged event, Emitter<DragState> emit) {
+    emit(state.clone(
+        addWidgetState: state.addWidgetState.clone(widgetOutput: event.type)));
+  }
+
   FutureOr<void> _onTagNameChanged(
       OnTagNameChanged event, Emitter<DragState> emit) {
     emit(state.clone(
@@ -215,21 +223,22 @@ class DragBloc extends Bloc<DragEvent, DragState> {
   }
 
   FutureOr<void> _onSwitchStateChanged(
-      OnSwitchStateChanged event, Emitter<DragState> emit) {
-    // state.modelList.forEach((element) {
-    //   if (element.id == event.id) {
-    //     sm!.status = event.state;
-    //   }
-    // });
-    // if (sm != null) {
-    WidgetModel? wm = _widgetList.firstWhereIndexedOrNull((index, element) => element.id == event.id);
+      OnSwitchStateChanged event, Emitter<DragState> emit) async {
+    SwitchModel? wm = _widgetList.firstWhereIndexedOrNull((index, element) => element.id == event.id) as SwitchModel?;
     if(wm != null){
       ModuleModel? sm = state.modelList.firstWhereIndexedOrNull((index, element) => element.id == wm.moduleId);
-      _mainRepoImpl.passAction(hubid: sm!.hubId!, id: sm!.id, state: event.state);
+      wm.value = event.state? 1: 0;
+      await _mainRepoImpl.passAction(hubid: sm!.hubId, id: sm.id, state: event.state, paramOut: wm.parameter!);
+      var index = _widgetList.indexWhere((element) => element.id == event.id);
+      _widgetList.removeAt(index);
+      _widgetList.insert(index, wm);
+      emit(state.clone(widgetList: _widgetList));
     }
-
-    // }
-    // emit(state.clone(widgetList: _widgetList));
+    await Future.delayed(const Duration(seconds: 3));
+    var response = await _mainRepoImpl.fetchWidgets();
+    _widgetList.clear();
+    _widgetList.addAll(response as  List<WidgetModel>);
+    emit(state.clone(widgetList: _widgetList));
   }
 
   FutureOr<void> _onHover(OnHoverWidget event, Emitter<DragState> emit) {
@@ -260,4 +269,6 @@ class DragBloc extends Bloc<DragEvent, DragState> {
     //     addWidgetState: state.addWidgetState.clone(),
     //     widgetList: _widgetList,));
   }
+
+
 }

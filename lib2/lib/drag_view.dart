@@ -63,6 +63,7 @@ class DragViewWidget extends BaseStateLess with AddWidgetDialog {
             key: _scaffoldKey,
             drawer: Container(
               height: double.infinity,
+              width: double.infinity,
               color: Colors.white,
               child: state.expandedId >=0? ExpandedWidget(
                 widgetModel: state.widgetList

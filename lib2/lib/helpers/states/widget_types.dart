@@ -17,6 +17,16 @@ class WidgetType{
       default: return WidgetTypes.UNDEFINED;
     }
   }
+  static WidgetTypes fromTitle(String title) {
+   switch(title){
+     case  WidgetTypeConstraints.undefinedTitle: return WidgetTypes.SWITCH;
+     case WidgetTypeConstraints.counterTitle: return WidgetTypes.COUNTER;
+     case WidgetTypeConstraints.climateSensorTitle: return WidgetTypes.CLIMATE_SENSOR;
+     case WidgetTypeConstraints.climateSensorControlTitle: return WidgetTypes.CLIMATE_CONTROL_PANEL;
+     default: return WidgetTypes.UNDEFINED;
+   }
+ }
+
 }
 
 extension Ex on WidgetTypes {
@@ -36,15 +46,6 @@ extension Ex on WidgetTypes {
     }
   }
 
-  WidgetTypes fromTitle(String title) {
-    switch(title){
-      case  WidgetTypeConstraints.undefinedTitle: return WidgetTypes.SWITCH;
-      case WidgetTypeConstraints.counterTitle: return WidgetTypes.COUNTER;
-      case WidgetTypeConstraints.climateSensorTitle: return WidgetTypes.CLIMATE_SENSOR;
-      case WidgetTypeConstraints.climateSensorControlTitle: return WidgetTypes.CLIMATE_CONTROL_PANEL;
-      default: return WidgetTypes.UNDEFINED;
-    }
-  }
 
 
   String get getId{

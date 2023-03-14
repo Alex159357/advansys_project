@@ -34,6 +34,7 @@ extension Types on DeviceTypes {
     }
   }
 
+
   String get getName {
     switch (this) {
       case DeviceTypes.DIGITAL_OUTPUT_1:

@@ -1,3 +1,4 @@
+import 'package:advansys_project/helpers/states/widget_types.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:collection/collection.dart';
@@ -30,7 +31,7 @@ class AddWidgetView extends StatelessWidget {
         ],
       ),
       width: 450,
-      height: 550,
+      height: 650,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.min,
@@ -52,6 +53,8 @@ class AddWidgetView extends StatelessWidget {
           _getNameField,
           const Divider(),
           _getTypeSelect,
+          const Divider(),
+          _getOutputSelect,
           const Divider(),
           _getHubSelect,
           const Divider(),
@@ -90,11 +93,11 @@ class AddWidgetView extends StatelessWidget {
         },
       );
 
-  Widget get _getTypeSelect => BlocBuilder<DragBloc, DragState>(
+  Widget get _getOutputSelect => BlocBuilder<DragBloc, DragState>(
         builder: (BuildContext context, state) {
-          DeviceTypes widgetTypes = state.addWidgetState.widgetType.isNotEmpty
+          DeviceTypes widgetTypes = state.addWidgetState.widgetOutput.isNotEmpty
               ? DeviceTypes.values.firstWhere((element) =>
-                  element.getKey == state.addWidgetState.widgetType)
+                  element.getKey == state.addWidgetState.widgetOutput)
               : DeviceTypes.ANALOG_OUTPUT_1;
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -119,7 +122,7 @@ class AddWidgetView extends StatelessWidget {
                       color: Colors.transparent,
                     ),
                     onChanged: (DeviceTypes? value) {
-                      bloc.add(OnTypeChanged(value!.getKey));
+                      bloc.add(OnOutputChanged(value!.getKey));
                     },
                     items: DeviceTypes.values
                         .map<DropdownMenuItem<DeviceTypes>>(
@@ -128,6 +131,55 @@ class AddWidgetView extends StatelessWidget {
                         value: value,
                         child: Text(
                           value.getName,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      );
+
+  Widget get _getTypeSelect => BlocBuilder<DragBloc, DragState>(
+        builder: (BuildContext context, state) {
+          WidgetTypes widgetTypes = state.addWidgetState.widgetType.isNotEmpty
+              ? WidgetTypes.values.firstWhereOrNull((element) => element.getId == state.addWidgetState.widgetType) ?? WidgetTypes.UNDEFINED
+              : WidgetTypes.UNDEFINED;
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  widgetTypes.getId, //AddWidgetDialog.deviceType,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4),
+                      color: Colors.grey.withOpacity(.3)
+                  ),
+                  child: DropdownButton<WidgetTypes>(
+                    value: widgetTypes,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    elevation: 16,
+                    underline: Container(
+                      color: Colors.transparent,
+                    ),
+                    onChanged: (WidgetTypes? value) {
+                      bloc.add(OnTypeChanged(value!.getId));
+                    },
+                    items: WidgetTypes.values
+                        .map<DropdownMenuItem<WidgetTypes>>(
+                            (WidgetTypes value) {
+                      return DropdownMenuItem<WidgetTypes>(
+                        value: value,
+                        child: Text(
+                          value.getTitle,
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                       );

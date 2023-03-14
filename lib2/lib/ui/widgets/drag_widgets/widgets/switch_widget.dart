@@ -123,7 +123,7 @@ class SwitchWidget extends BaseStateLess {
       padding: const EdgeInsets.all(18.0),
       child: CupertinoSwitch(
         trackColor: Colors.black12,
-        value: curModel?.status == "true",
+        value: wm.value == 1,
         onChanged: (bool value) {
           bloc.add(OnSwitchStateChanged(id: wm.id!, state: value));
         },

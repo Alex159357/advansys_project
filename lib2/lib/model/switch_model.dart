@@ -25,6 +25,9 @@ class SwitchModel implements WidgetModel {
   @override
   double? dy;
 
+  double? value;
+
+  String? parameter;
 
   SwitchModel(
       {this.id,
@@ -33,7 +36,7 @@ class SwitchModel implements WidgetModel {
       this.name,
       this.time,
       this.dx,
-      this.dy});
+      this.dy, this.value, this.parameter});
 
   SwitchModel.fromJson(Map<String, dynamic> json) {
     id = int.tryParse(json['id'].toString());
@@ -43,6 +46,8 @@ class SwitchModel implements WidgetModel {
     dy = double.tryParse(json['y']);
     moduleName = json['module_name'];
     time = json['time'];
+    value = double.tryParse(json['value'].toString());
+    parameter = json["parameter"];
   }
 
   @override
@@ -55,6 +60,7 @@ class SwitchModel implements WidgetModel {
     data['y'] = dy.toString();
     data['module_name'] = moduleName;
     data['time'] = time;
+    data['parameter'] = parameter;
     return data;
   }
 
