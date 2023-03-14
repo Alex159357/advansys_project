@@ -183,7 +183,7 @@ class DragBloc extends Bloc<DragEvent, DragState> {
     });
 
     WidgetModel wmTmp = WidgetModel(
-        id: int.tryParse("${state.addWidgetState.widgetType}$widgetId"),
+        id: widgetId,
         name: state.addWidgetState.name,
         moduleId: state.addWidgetState.selectedModule,
         moduleHubId: state.addWidgetState.selectedHub,
