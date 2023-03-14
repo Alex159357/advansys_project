@@ -181,12 +181,14 @@ class DragBloc extends Bloc<DragEvent, DragState> {
       widgetId = rng.nextInt(9999);
       return false;
     });
-
+    ModuleModel selectedModule = state.modelList.firstWhere((element) => element.id == state.addWidgetState.selectedModule);
     WidgetModel wmTmp = WidgetModel(
         id: widgetId,
         name: state.addWidgetState.name,
-        moduleId: state.addWidgetState.selectedModule,
+        moduleId: selectedModule.id,
         moduleHubId: state.addWidgetState.selectedHub,
+        moduleName: selectedModule.name,
+        time: DateTime.now().millisecondsSinceEpoch.toString(),
         dx: 0,
         dy: 0);
     var req = wmTmp.toJson();
