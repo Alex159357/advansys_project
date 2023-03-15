@@ -14,15 +14,15 @@ extension Types on DeviceTypes {
   String get getKey {
     switch (this) {
       case DeviceTypes.DIGITAL_OUTPUT_1:
-        return "DO1";
+        return "DOO1";
       case DeviceTypes.DIGITAL_OUTPUT_2:
-        return "DO2";
+        return "DOO2";
       case DeviceTypes.DIGITAL_OUTPUT_3:
-        return "DO3";
+        return "DOO3";
       case DeviceTypes.DIGITAL_OUTPUT_4:
-        return "DO4";
+        return "DOO4";
       case DeviceTypes.DIGITAL_OUTPUT_5:
-        return "DO5";
+        return "DOO5";
       case DeviceTypes.ANALOG_OUTPUT_1:
         return "AO1";
       case DeviceTypes.ANALOG_OUTPUT_2:

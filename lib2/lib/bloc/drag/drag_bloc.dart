@@ -59,16 +59,17 @@ class DragBloc extends Bloc<DragEvent, DragState> {
         modelList: modules));
   }
 
-  void _initWidgetAction(){
-    _widgetList.map((e){
-      var curModule = state.modelList.firstWhereIndexedOrNull((index, element) => element.id == e.moduleId);
-
+  void _initWidgetAction() {
+    _widgetList.map((e) {
+      var curModule = state.modelList.firstWhereIndexedOrNull(
+          (index, element) => element.id == e.moduleId);
     });
   }
 
   FutureOr<void> _onWidgetPositionChanged(
       OnWidgetPositionChanged event, Emitter<DragState> emit) async {
-    var indexOfMovedWidget = _widgetList.indexWhere((element) => element.id == event.id);
+    var indexOfMovedWidget =
+        _widgetList.indexWhere((element) => element.id == event.id);
     var movedElement = _widgetList[indexOfMovedWidget];
     movedElement.changeCoordinates(dx: event.dx, dy: event.dy);
     _widgetList.removeAt(indexOfMovedWidget);
@@ -126,12 +127,15 @@ class DragBloc extends Bloc<DragEvent, DragState> {
   }
 
   FutureOr<void> _removeItem(OnRemoveReq event, Emitter<DragState> emit) async {
-     var response = await _mainRepoImpl.deleteWidget(event.id);
+    var response = await _mainRepoImpl.deleteWidget(event.id);
     _widgetList.removeWhere((element) => element.id == event.id);
     emit(state.clone(widgetList: _widgetList, holdState: false));
-     _widgetList.clear();
-     _widgetList.addAll(response as List<WidgetModel>);
-     emit(state.clone(widgetList: _widgetList, holdState: false, didItemOverRemoveTarget: false));
+    _widgetList.clear();
+    _widgetList.addAll(response as List<WidgetModel>);
+    emit(state.clone(
+        widgetList: _widgetList,
+        holdState: false,
+        didItemOverRemoveTarget: false));
   }
 
   FutureOr<void> _onOvertargetStateChange(
@@ -181,18 +185,24 @@ class DragBloc extends Bloc<DragEvent, DragState> {
       widgetId = rng.nextInt(9999);
       return false;
     });
-    ModuleModel selectedModule = state.modelList.firstWhere((element) => element.id == state.addWidgetState.selectedModule);
+    ModuleModel selectedModule = state.modelList.firstWhere(
+        (element) => element.id == state.addWidgetState.selectedModule);
     WidgetModel wmTmp = WidgetModel(
         id: widgetId,
         name: state.addWidgetState.name,
         moduleId: selectedModule.id,
         moduleHubId: state.addWidgetState.selectedHub,
         moduleName: selectedModule.name,
-        time: DateTime.now().millisecondsSinceEpoch.toString(),
+        // time: DateTime.now().millisecondsSinceEpoch.toString(),
         dx: 0,
         dy: 0);
     var req = wmTmp.toJson();
-    req.addAll({"panel_id": panelId, "parameter": state.addWidgetState.widgetOutput.substring(0, 2), "output_id": state.addWidgetState.widgetOutput.substring(2, state.addWidgetState.widgetOutput.length)});
+    req.addAll({
+      "panel_id": panelId,
+      "parameter":
+          state.addWidgetState.widgetOutput.substring(0, 3).toLowerCase(),
+      "output_id": state.addWidgetState.widgetOutput.substring(3, state.addWidgetState.widgetOutput.length)
+    });
     final response = await _mainRepoImpl.addDevice(req);
     if (response != null) {
       _widgetList.clear();
@@ -213,7 +223,8 @@ class DragBloc extends Bloc<DragEvent, DragState> {
         addWidgetState: state.addWidgetState.clone(widgetType: event.type)));
   }
 
-  FutureOr<void> _onWidgetOutputChanged(OnOutputChanged event, Emitter<DragState> emit) {
+  FutureOr<void> _onWidgetOutputChanged(
+      OnOutputChanged event, Emitter<DragState> emit) {
     emit(state.clone(
         addWidgetState: state.addWidgetState.clone(widgetOutput: event.type)));
   }
@@ -226,11 +237,17 @@ class DragBloc extends Bloc<DragEvent, DragState> {
 
   FutureOr<void> _onSwitchStateChanged(
       OnSwitchStateChanged event, Emitter<DragState> emit) async {
-    SwitchModel? wm = _widgetList.firstWhereIndexedOrNull((index, element) => element.id == event.id) as SwitchModel?;
-    if(wm != null){
-      ModuleModel? sm = state.modelList.firstWhereIndexedOrNull((index, element) => element.id == wm.moduleId);
-      wm.value = event.state? 1: 0;
-      await _mainRepoImpl.passAction(hubid: sm!.hubId, id: sm.id, state: event.state, paramOut: wm.parameter!);
+    SwitchModel? wm = _widgetList.firstWhereIndexedOrNull(
+        (index, element) => element.id == event.id) as SwitchModel?;
+    if (wm != null) {
+      ModuleModel? sm = state.modelList.firstWhereIndexedOrNull(
+          (index, element) => element.id == wm.moduleId);
+      wm.value = event.state ? 1 : 0;
+      await _mainRepoImpl.passAction(
+          hubid: sm!.hubId,
+          id: sm.id,
+          state: event.state,
+          paramOut: wm.parameter!);
       var index = _widgetList.indexWhere((element) => element.id == event.id);
       _widgetList.removeAt(index);
       _widgetList.insert(index, wm);
@@ -239,7 +256,7 @@ class DragBloc extends Bloc<DragEvent, DragState> {
     await Future.delayed(const Duration(seconds: 3));
     var response = await _mainRepoImpl.fetchWidgets();
     _widgetList.clear();
-    _widgetList.addAll(response as  List<WidgetModel>);
+    _widgetList.addAll(response as List<WidgetModel>);
     emit(state.clone(widgetList: _widgetList));
   }
 
@@ -259,7 +276,8 @@ class DragBloc extends Bloc<DragEvent, DragState> {
             state.addWidgetState.clone(selectedModule: event.moduleId)));
   }
 
-  FutureOr<void> _onWidgetMoved(OnWidgetMoved event, Emitter<DragState> emit) async {
+  FutureOr<void> _onWidgetMoved(
+      OnWidgetMoved event, Emitter<DragState> emit) async {
     WidgetModel? wmTmp = _widgetList
         .firstWhereOrNull((element) => element.id.toString() == event.id);
     await _mainRepoImpl.widgetMoved(wmTmp!);
@@ -271,6 +289,4 @@ class DragBloc extends Bloc<DragEvent, DragState> {
     //     addWidgetState: state.addWidgetState.clone(),
     //     widgetList: _widgetList,));
   }
-
-
 }
